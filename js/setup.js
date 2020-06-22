@@ -75,6 +75,8 @@ var onSetupEscPress = function (evt) {
 var openSetup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onSetupEscPress);
+
+  // console.log(setup.getBoundingClientRect().left, setup.getBoundingClientRect().top);
 };
 
 var closeSetup = function () {
@@ -132,3 +134,64 @@ wizardFireball.addEventListener('click', function () {
 setupSimilar.classList.remove('hidden');
 var wizards = getWizardsArray();
 renderWizardsList(wizards);
+
+
+// var setupStartCoords = {
+//   x:
+//   y:
+// };
+
+
+
+
+
+
+
+
+var userIcon = setup.querySelector('.upload');
+
+userIcon.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+  var dragged = false;
+
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY,
+  };
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    dragged = true;
+
+    var shift = {
+      x: moveEvt.clientX - startCoords.x,
+      y: moveEvt.clientY - startCoords.y,
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY,
+    };
+
+    setup.style.left = setup.offsetLeft + shift.x + 'px';
+    setup.style.top = setup.offsetTop + shift.y + 'px';
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    if (dragged) {
+      var onUserIconClick = function (clickEvt) {
+        clickEvt.preventDefault();
+        userIcon.removeEventListener('click', onUserIconClick);
+      };
+      userIcon.addEventListener('click', onUserIconClick);
+    }
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
