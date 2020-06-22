@@ -136,10 +136,7 @@ var wizards = getWizardsArray();
 renderWizardsList(wizards);
 
 
-// var setupStartCoords = {
-//   x:
-//   y:
-// };
+
 
 
 
