@@ -75,13 +75,14 @@ var onSetupEscPress = function (evt) {
 var openSetup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onSetupEscPress);
-
-  // console.log(setup.getBoundingClientRect().left, setup.getBoundingClientRect().top);
 };
 
 var closeSetup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onSetupEscPress);
+
+  setup.style.left = '';
+  setup.style.top = '';
 };
 
 setupOpen.addEventListener('click', function () {
