@@ -29,7 +29,7 @@
     },
 
     save: function (data, onLoad, onError) {
-      var URL = 'https://js.dump.academy/code-and-magick';
+      var URL = 'https://echo.htmlacademy.ru';
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
       xhr.timeout = '10000';

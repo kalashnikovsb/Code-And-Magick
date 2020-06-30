@@ -8,6 +8,7 @@ var userIcon = setup.querySelector('.upload');
 var artifactsShop = document.querySelector('.setup-artifacts-shop');
 var inventory = document.querySelector('.setup-artifacts');
 var draggedItem = null;
+var setupForm = setup.querySelector('.setup-wizard-form');
 
 var onSetupEscPress = function (evt) {
   if (evt.keyCode === 27) {
@@ -23,9 +24,14 @@ var openSetup = function () {
 var closeSetup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onSetupEscPress);
-  setup.style.left = '';
-  setup.style.top = '';
+  window.utils.restoreCoords(setup);
 };
+
+setupForm.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+  var data = new FormData(setupForm);
+  window.backend.save(data, closeSetup, window.main.onError);
+});
 
 userIcon.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
