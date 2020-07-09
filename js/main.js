@@ -3,9 +3,12 @@
 (function () {
   var setupSimilar = document.querySelector('.setup-similar');
   var errorMessageStyle = 'position: absolute; top: 0; left: 0; right: 0; z-index: 100; padding: 10px; background: red; color: white; font-size: 15px; text-align: center;';
-  var NUMBER_OF_WIZARDS = 4;
 
   window.main = {
+    numberOfWizards: 4,
+
+    allData: [],
+
     onError: function (errorText) {
       var errorMessage = document.createElement('div');
       errorMessage.textContent = errorText;
@@ -15,8 +18,8 @@
   };
 
   var onDownloadSuccess = function (array) {
-    var wizards = window.utils.getRandomSubArray(NUMBER_OF_WIZARDS, array);
-    window.wizards.renderAll(wizards);
+    window.main.allData = array.slice();
+    window.wizards.renderSortedArray(window.main.allData);
   };
 
   setupSimilar.classList.remove('hidden');

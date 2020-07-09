@@ -14,6 +14,40 @@
   var wizardEyesInput = setup.querySelector('input[name="eyes-color"]');
   var wizardFireballInput = setup.querySelector('input[name="fireball-color"]');
 
+
+
+
+
+
+
+  var getWizardRank = function (wizard) {
+    var rank = 0;
+    if (wizardCoatInput.value === wizard.colorCoat) {
+      rank += 2;
+    } else if (wizardCoatInput.value === wizard.colorEyes) {
+      rank += 1;
+    }
+    return rank;
+  };
+
+  var compareWizards = function (wizardFirst, wizardSecond) {
+    var rankA = getWizardRank(wizardFirst);
+    var rankB = getWizardRank(wizardSecond);
+    if (rankA < rankB) {
+      return 1;
+    }
+    if (rankA > rankB) {
+      return -1;
+    }
+    return 0;
+  };
+
+
+
+
+
+
+
   var generateWizard = function (object) {
     var wizardItem = wizardTemplate.cloneNode(true);
     wizardItem.querySelector('.setup-similar-label').textContent = object.name;
@@ -41,12 +75,16 @@
   });
 
   window.wizards = {
-    renderAll: function (array) {
+    renderSortedArray: function (array) {
+      var arrayCopy = array.slice();
+      arrayCopy.sort(compareWizards);
+
       var fragment = document.createDocumentFragment();
-      for (var i = 0; i < array.length; i++) {
-        fragment.appendChild(generateWizard(array[i]));
+      for (var i = 0; i < window.main.numberOfWizards; i++) {
+        fragment.appendChild(generateWizard(arrayCopy[i]));
       }
       wizardsList.appendChild(fragment);
+      console.log(wizardsList.children);
     },
   };
 

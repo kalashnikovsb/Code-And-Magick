@@ -15,15 +15,6 @@
       return array[randomIndex];
     },
 
-    getRandomSubArray: function (numberOfElements, array) {
-      var result = [];
-      for (var i = 0; i < numberOfElements; i++) {
-        var randomElement = window.utils.getRandomArrayElement(array);
-        result.push(randomElement);
-      }
-      return result;
-    },
-
     restoreCoords: function (element) {
       element.style.left = '';
       element.style.top = '';
