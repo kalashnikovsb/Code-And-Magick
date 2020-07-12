@@ -9,17 +9,19 @@
       return Math.floor(Math.random() * (max - min + 1)) + min;
     },
 
-    getRandomArrayElement: function (array) {
-      var maxIndex = array.length - 1;
-      var randomIndex = this.getRandomNumber(0, maxIndex);
-      return array[randomIndex];
+    getNextArrayElement: function (array, currentItem) {
+      var lastIndex = array.length - 1;
+      var index = array.indexOf(currentItem);
+      if (index === -1 || index === lastIndex) {
+        return array[0];
+      }
+      return array[index + 1];
     },
 
     restoreCoords: function (element) {
       element.style.left = '';
       element.style.top = '';
     },
-
   };
 
 })();

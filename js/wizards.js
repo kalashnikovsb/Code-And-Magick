@@ -14,17 +14,12 @@
   var wizardEyesInput = setup.querySelector('input[name="eyes-color"]');
   var wizardFireballInput = setup.querySelector('input[name="fireball-color"]');
 
-
-
-
-
-
-
   var getWizardRank = function (wizard) {
     var rank = 0;
     if (wizardCoatInput.value === wizard.colorCoat) {
       rank += 2;
-    } else if (wizardCoatInput.value === wizard.colorEyes) {
+    }
+    if (wizardEyesInput.value === wizard.colorEyes) {
       rank += 1;
     }
     return rank;
@@ -42,12 +37,6 @@
     return 0;
   };
 
-
-
-
-
-
-
   var generateWizard = function (object) {
     var wizardItem = wizardTemplate.cloneNode(true);
     wizardItem.querySelector('.setup-similar-label').textContent = object.name;
@@ -57,34 +46,35 @@
   };
 
   wizardCoat.addEventListener('click', function () {
-    var coatColor = window.utils.getRandomArrayElement(COATS_COLORS);
+    var coatColor = window.utils.getNextArrayElement(COATS_COLORS, wizardCoatInput.value);
     wizardCoat.style.fill = coatColor;
     wizardCoatInput.value = coatColor;
+    window.wizards.renderSortedArray(window.main.allData);
   });
 
   wizardEyes.addEventListener('click', function () {
-    var eyesColor = window.utils.getRandomArrayElement(EYES_COLORS);
+    var eyesColor = window.utils.getNextArrayElement(EYES_COLORS, wizardEyesInput.value);
     wizardEyes.style.fill = eyesColor;
     wizardEyesInput.value = eyesColor;
+    window.wizards.renderSortedArray(window.main.allData);
   });
 
   wizardFireball.addEventListener('click', function () {
-    var fireballColor = window.utils.getRandomArrayElement(FIREBALLS_COLORS);
+    var fireballColor = window.utils.getNextArrayElement(FIREBALLS_COLORS, wizardFireballInput.value);
     wizardFireball.style.background = fireballColor;
     wizardFireballInput.value = fireballColor;
   });
 
   window.wizards = {
     renderSortedArray: function (array) {
+      wizardsList.innerHTML = '';
       var arrayCopy = array.slice();
       arrayCopy.sort(compareWizards);
-
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < window.main.numberOfWizards; i++) {
         fragment.appendChild(generateWizard(arrayCopy[i]));
       }
       wizardsList.appendChild(fragment);
-      console.log(wizardsList.children);
     },
   };
 
