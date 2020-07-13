@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var DEBOUNCE_INTERVAL = 500;
+  var lastTimeout;
 
   window.utils = {
     getRandomNumber: function (min, max) {
@@ -10,8 +12,8 @@
     },
 
     getNextArrayElement: function (array, currentItem) {
-      var lastIndex = array.length - 1;
       var index = array.indexOf(currentItem);
+      var lastIndex = array.length - 1;
       if (index === -1 || index === lastIndex) {
         return array[0];
       }
@@ -22,6 +24,12 @@
       element.style.left = '';
       element.style.top = '';
     },
-  };
 
+    debounce: function (callback) {
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(callback, DEBOUNCE_INTERVAL);
+    },
+  };
 })();

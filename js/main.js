@@ -5,8 +5,6 @@
   var errorMessageStyle = 'position: absolute; top: 0; left: 0; right: 0; z-index: 100; padding: 10px; background: red; color: white; font-size: 15px; text-align: center;';
 
   window.main = {
-    numberOfWizards: 4,
-
     allData: [],
 
     onError: function (errorText) {
@@ -19,7 +17,7 @@
 
   var onDownloadSuccess = function (array) {
     window.main.allData = array.slice();
-    window.wizards.renderSortedArray(window.main.allData);
+    window.wizards.render(window.main.allData);
   };
 
   setupSimilar.classList.remove('hidden');

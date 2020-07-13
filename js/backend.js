@@ -1,18 +1,21 @@
 'use strict';
 
 (function () {
-  window.backend = {
+  var LOAD_URL = 'https://js.dump.academy/code-and-magick/data';
+  var SAVE_URL = 'https://echo.htmlacademy.ru';
+  var TIMEOUT = 10000;
+  var SUCCCESS_STATUS = 200;
 
+  window.backend = {
     load: function (onLoad, onError) {
-      var URL = 'https://js.dump.academy/code-and-magick/data';
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
-      xhr.timeout = '10000';
-      xhr.open('GET', URL);
+      xhr.timeout = TIMEOUT;
+      xhr.open('GET', LOAD_URL);
       xhr.send();
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
+        if (xhr.status === SUCCCESS_STATUS) {
           onLoad(xhr.response);
         } else {
           onError('Статус ошибки: ' + xhr.status + ' ' + xhr.statusText);
@@ -29,15 +32,14 @@
     },
 
     save: function (data, onLoad, onError) {
-      var URL = 'https://echo.htmlacademy.ru';
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
-      xhr.timeout = '10000';
-      xhr.open('POST', URL);
+      xhr.timeout = TIMEOUT;
+      xhr.open('POST', SAVE_URL);
       xhr.send(data);
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
+        if (xhr.status === SUCCCESS_STATUS) {
           onLoad();
         } else {
           onError('Статус ошибки: ' + xhr.status + ' ' + xhr.statusText);
